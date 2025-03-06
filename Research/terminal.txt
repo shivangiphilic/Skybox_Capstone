@@ -1,0 +1,55 @@
+>> 
+
+Evaluating model: OpenAI-GPT-4o-mini...
+Completed evaluation for OpenAI-GPT-4o-mini
+
+
+Evaluating model: Google-Gemini-2.0-Flash...
+Completed evaluation for Google-Gemini-2.0-Flash
+
+
+Evaluating model: Claude-3.7-Sonnet...
+Completed evaluation for Claude-3.7-Sonnet
+
+
+Evaluating model: Meta-Llama3-70b...
+Completed evaluation for Meta-Llama3-70b
+
+
+Model Evaluation Results:
+==================================================
+
+OpenAI-GPT-4o-mini:
+  - Formality Score: 0.01
+  - Readability Score: 11.33
+  - Grammar Issues: 3.20
+  - Word Count: 161.20
+
+Google-Gemini-2.0-Flash:
+  - Formality Score: 0.02
+  - Readability Score: 12.08
+  - Grammar Issues: 0.30
+  - Word Count: 141.37
+
+Claude-3.7-Sonnet:
+  - Formality Score: 0.01
+  - Readability Score: 13.31
+  - Grammar Issues: 2.28
+  - Word Count: 175.02
+
+Meta-Llama3-70b:
+  - Formality Score: 0.00
+  - Readability Score: 11.66
+  - Grammar Issues: 0.16
+  - Word Count: 153.72
+==================================================
+
+Final Weighted Scores:
+==================================================
+OpenAI-GPT-4o-mini: -0.0911
+Google-Gemini-2.0-Flash: 0.4005
+Claude-3.7-Sonnet: 0.3408
+Meta-Llama3-70b: 0.0870
+==================================================
+
+Best AI Model for Formal Emails: Google-Gemini-2.0-Flash
