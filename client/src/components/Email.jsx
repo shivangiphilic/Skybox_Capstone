@@ -21,6 +21,7 @@ const Wrapper = styled(ListItem)`
     & > div > p {
         font-size: 14px;
     }
+    overflow: hidden;   
 `;
 
 const Indicator = styled(Typography)`
@@ -87,11 +88,11 @@ const Email = ({ email, setStarredEmail, selectedEmails, setSelectedEmails }) =>
             }}>To:{email.to ? email.to.split('@')[0] : "Unknown"}</Typography>
                 <Indicator>Inbox</Indicator>
                 <Typography 
-                    style={{
+                    style={{ 
+                        width: 700,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
-                        width: '100%'
                     }}
                 >{email.subject} {email.body && '-'} {email.body}</Typography>
                 <Date>

@@ -9,7 +9,6 @@ dotenv.config();
 
 import nodemailer from "nodemailer";
 
-
 const app = express();
 
 app.use(cors());
@@ -43,8 +42,6 @@ const sendMail = async (mailOptions) => {
     console.log(err);
   }   
 }
-
-
 
 // Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
