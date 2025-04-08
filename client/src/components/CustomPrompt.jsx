@@ -17,7 +17,30 @@ function CustomPrompt({ onGenerate }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: inputValue }),
+      body: JSON.stringify({ prompt: "Generate a highly professional, polished, and well-structured formal email for the following business scenario: " + inputValue + `The email should be between 150-200 words and must follow strict corporate etiquette.
+
+    Ensure that:
+    ✅ The Subject Line is concise, engaging, and relevant.
+    ✅ The email begins with a polite and professional greeting (using the fixed recipient name: Alex Carter → e.g., 'Dear Alex Carter,').
+    ✅ The Introduction smoothly sets the context in a clear and engaging manner.
+    ✅ The Main Body conveys the core message professionally while maintaining clarity and conciseness.
+    ✅ The Closing Statement includes a clear next step or a polite call to action.
+    ✅ The Signature is consistent across all emails and should be:
+
+    John Doe
+    Senior Manager
+    ABC Corp.
+
+    🚨 Unbreakable Guidelines:
+    - "Alex Carter" must remain the recipient in every single email—no variations.
+    - The subject and body are the ONLY variables—no extra names, senders, or changes.
+    - The tone must be formal, polished, and business-appropriate (no casual phrases).
+    - Keep language clear, professional, and direct—no unnecessary fluff.
+    - Express gratitude or appreciation where relevant (e.g., “Thank you for your time and consideration.”).
+    - Maintain seamless transitions between sections for natural readability.
+    - Emails should sound like they were written by a real business professional—not AI-generated.
+
+    🚀 Your goal: Make this email feel like it was crafted by a top corporate executive—precise, polished, and persuasive.` }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -41,7 +64,30 @@ function CustomPrompt({ onGenerate }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: generatedText + " Paraphrase it" }),
+      body: JSON.stringify({ prompt: "Paraphrase into a highly professional, polished, and well-structured formal email for the below email:" + generatedText + `The email should be between 150-200 words and must follow strict corporate etiquette.
+
+    Ensure that:
+    ✅ The Subject Line is concise, engaging, and relevant.
+    ✅ The email begins with a polite and professional greeting (using the fixed recipient name: Alex Carter → e.g., 'Dear Alex Carter,').
+    ✅ The Introduction smoothly sets the context in a clear and engaging manner.
+    ✅ The Main Body conveys the core message professionally while maintaining clarity and conciseness.
+    ✅ The Closing Statement includes a clear next step or a polite call to action.
+    ✅ The Signature is consistent across all emails and should be:
+
+    John Doe
+    Senior Manager
+    ABC Corp.
+
+    🚨 Unbreakable Guidelines:
+    - "Alex Carter" must remain the recipient in every single email—no variations.
+    - The subject and body are the ONLY variables—no extra names, senders, or changes.
+    - The tone must be formal, polished, and business-appropriate (no casual phrases).
+    - Keep language clear, professional, and direct—no unnecessary fluff.
+    - Express gratitude or appreciation where relevant (e.g., “Thank you for your time and consideration.”).
+    - Maintain seamless transitions between sections for natural readability.
+    - Emails should sound like they were written by a real business professional—not AI-generated.
+
+    🚀 Your goal: Make this email feel like it was crafted by a top corporate executive—precise, polished, and persuasive. Do not give multiple options. Just paraphrase the given email into a single email of the same format again.` }),
     })
       .then((response) => response.json())
       .then((data) => {
