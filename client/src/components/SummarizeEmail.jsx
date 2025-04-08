@@ -14,7 +14,29 @@ function SummarizeEmail({ email }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ prompt: email.body + "Summarize the Email" }),
+          body: JSON.stringify({ prompt: email.body + `Summarize the above formal business email in 3-4 concise, professional sentences that clearly capture the essence of the message.
+
+Ensure the summary:
+
+✅ Maintains a formal and polished tone, consistent with corporate communication.
+
+✅ Clearly outlines the main purpose of the email.
+
+✅ Highlights any key actions, decisions, or next steps.
+
+✅ Is suitable for an executive-level email digest or internal recap.
+
+✅ Does not include the greeting, signature, or subject line—focus only on the core content.
+
+🚨 Unbreakable Guidelines:
+
+Do not quote or copy full sentences from the email—rephrase with brevity and clarity.
+
+Avoid redundant formalities; be succinct but professional.
+
+Assume the reader is a senior executive who needs a quick but complete grasp of the email's intent.
+
+` }),
         })
           .then((response) => response.json())
           .then((data) => {
