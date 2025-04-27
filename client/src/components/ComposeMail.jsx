@@ -61,7 +61,6 @@ const ComposeMail = ({ open, setOpenDrawer }) => {
     });    
     const sentEmailService = useApi(API_URLS.saveSentEmails);
     const saveDraftService = useApi(API_URLS.saveDraftEmails);
-    const [prompt, setPrompt] = useState("");
 
     const onValueChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value || '' });
@@ -70,6 +69,10 @@ const ComposeMail = ({ open, setOpenDrawer }) => {
     const handleGeneratedText = (generatedText) => {
         setData({ ...data, body: generatedText });
     };
+
+    const handleTemplateSelect = (template) => {
+        setData({ ...data,subject:template.subject, body: template.body });
+    }
 
     const sendEmail = async (e) => {
         e.preventDefault();
@@ -140,7 +143,9 @@ const ComposeMail = ({ open, setOpenDrawer }) => {
         >
             <Header>
                 <Typography>New Message</Typography>
-                <CustomPrompt onGenerate={handleGeneratedText} />
+                <CustomPrompt onGenerate={handleGeneratedText} 
+                    onTemplateSelect={handleTemplateSelect} 
+                />
                 <Close fontSize="small" onClick={(e) => closeComposeMail(e)} />
             </Header>
             <RecipientWrapper>
