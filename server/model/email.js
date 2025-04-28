@@ -31,6 +31,14 @@ const EmailSchema = mongoose.Schema({
     type: {
         type: String,
         required: true,
+    },
+    status: {
+        type: String,
+        enum: ['draft', 'sent', 'read', 'failed'],
+        default: 'sent'
+    },
+    readTimestamp: {
+        type: Date
     }
 })
 

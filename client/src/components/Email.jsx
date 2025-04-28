@@ -33,11 +33,12 @@ const Indicator = styled(Typography)`
     padding: 0 4px;
 `;
 
-const Date = styled(Typography)({
+const DateText = styled(Typography)({
     marginLeft: 'auto',
     marginRight: 20,
     fontSize: 12,
-    color: '#5F6368'
+    color: '#5F6368',
+    textAlign: 'right'
 })
 
 const Email = ({ email, setStarredEmail, selectedEmails, setSelectedEmails }) => {
@@ -57,6 +58,20 @@ const Email = ({ email, setStarredEmail, selectedEmails, setSelectedEmails }) =>
             setSelectedEmails(prevState => [...prevState, email._id]);
         }
     }
+
+    // Helper to format date/time like Gmail
+    const getDisplayDate = (dateString) => {
+        const date = new window.Date(dateString);
+        const now = new window.Date();
+        const isToday = date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+        if (isToday) {
+            // Show time in IST
+            return date.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: true });
+        } else {
+            // Show date in IST
+            return date.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short' });
+        }
+    };
 
     return (
         <Wrapper>
@@ -79,7 +94,6 @@ const Email = ({ email, setStarredEmail, selectedEmails, setSelectedEmails }) =>
                 gap: '5px',
                 width: '100%',
                 whiteSpace: 'nowrap',
-                overflow: 'hidden',
                 textOverflow: 'ellipsis'
             }}
             >
@@ -95,10 +109,9 @@ const Email = ({ email, setStarredEmail, selectedEmails, setSelectedEmails }) =>
                         whiteSpace: 'nowrap',
                     }}
                 >{email.subject} {email.body && '-'} {email.body}</Typography>
-                <Date>
-                    {(new window.Date(email.date)).getDate()}&nbsp;
-                    {(new window.Date(email.date)).toLocaleString('default', { month: 'long' })}
-                </Date>
+                <DateText>
+                    {getDisplayDate(email.date)}
+                </DateText>
             </Box>
         </Wrapper>
     )

@@ -102,28 +102,33 @@ export const getEmails = async (request, response) => {
         let emails;
 
         if (request.params.type === "starred") {
-        emails = await Email.find({ starred: true, bin: false });
+            emails = await Email.find({ starred: true, bin: false }).sort({ date: -1 });
         } 
         else if (request.params.type === "bin") {
-        emails = await Email.find({ bin: true });
+            emails = await Email.find({ bin: true }).sort({ date: -1 });
         } 
         else if (request.params.type === "allmail") {
-        emails = await Email.find({});
+            emails = await Email.find({}).sort({ date: -1 });
         } 
         else if (request.params.type === "inbox") {
-        const existingUnreadEmails = await Email.find({
-            type: "inbox",
-            bin: false,
-        });
-        const newEmails = await fetchEmails();
-        emails = [...existingUnreadEmails, ...newEmails];
+            const existingUnreadEmails = await Email.find({
+                type: "inbox",
+                bin: false,
+            }).sort({ date: -1 });
+            const newEmails = await fetchEmails();
+            emails = [...existingUnreadEmails, ...newEmails];
         } 
         else if (request.params.type === "sent") {
-        emails = await Email.find({ type: "sent" }); // Fetch sent emails
+            emails = await Email.find({ type: "sent" }).sort({ date: -1 });
         } 
         else {
-        emails = await Email.find({ type: request.params.type });
+            emails = await Email.find({ type: request.params.type }).sort({ date: -1 });
         }
+
+        // Remove any potential duplicates by ID
+        emails = emails.filter((email, index, self) =>
+            index === self.findIndex((e) => e._id.toString() === email._id.toString())
+        );
 
         response.status(200).json(emails);
     } catch (error) {

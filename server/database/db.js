@@ -9,7 +9,10 @@ const DB_URI = process.env.DB_URI;
 
 const Connection = async () => {
     try {
-        await mongoose.connect(DB_URI, { useNewUrlParser: true });
+        await mongoose.connect(DB_URI, {
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000
+        });
         mongoose.set('strictQuery', false);
         console.log('Database connected successfully');
     } catch (error) {

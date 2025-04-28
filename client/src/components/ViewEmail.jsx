@@ -1,9 +1,9 @@
 import { Box, Typography, styled } from '@mui/material';
 import { useOutletContext, useLocation } from 'react-router-dom';
 import { emptyProfilePic } from '../constants/constant';
-import { ArrowBack, Delete } from '@mui/icons-material';
+import { ArrowBack } from '@mui/icons-material';
 import SummarizeEmail from './SummarizeEmail';
-import { useEffect } from 'react';
+import EmailStatus from './EmailStatus';
 
 const IconWrapper = styled(Box)({
     position: 'relative', 
@@ -51,10 +51,11 @@ const Container = styled(Box)({
     }
 });
 
-const Date = styled(Typography)({
+const DateText = styled(Typography)({
     margin: '0 50px 0 auto',
     fontSize: 12,
-    color: '#5E5E5E'
+    color: '#5E5E5E',
+    textAlign: 'right'
 });
 
 const BodyText = styled(Typography)({
@@ -103,14 +104,13 @@ const ViewEmail = () => {
                             from: {parseFromField(email)} 
                             {/* <Box component="span">&nbsp;&#60;{email.from ? email.from : "email@example.com"}&#62;</Box> */}
                         </Typography>
-                        <Date>
-                            {(new window.Date(email.date)).getDate()}&nbsp;
-                            {(new window.Date(email.date)).toLocaleString('default', { month: 'long' })}&nbsp;
-                            {(new window.Date(email.date)).getFullYear()} 
-                        </Date>
+                        <DateText>
+                            {new Date(email.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true })}
+                        </DateText>
                     </Box>
                     <BodyText>{email.body}</BodyText>
                     <SummarizeEmail email={email} />
+                    {email.type === 'sent' && <EmailStatus emailId={email._id} />}
                 </Container>
             </Box>
         </Box>

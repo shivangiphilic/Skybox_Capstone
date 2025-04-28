@@ -76,7 +76,10 @@ const ComposeMail = ({ open, setOpenDrawer }) => {
 
     const sendEmail = async (e) => {
         e.preventDefault();
-
+        if (!data.to || data.to.trim() === "") {
+            alert("Recipient email address is required!");
+            return;
+        }
         try {
             const response = await axios.post('http://localhost:8000/sendEmail', {
                 mailContent: data.body, // Send the email body as mailContent
@@ -88,20 +91,6 @@ const ComposeMail = ({ open, setOpenDrawer }) => {
                 console.log("Email sent successfully");
                 setOpenDrawer(false);
                 setData({ to: '', subject: '', body: '' });
-
-                const payload = {
-                    to : data.to,
-                    from : "skyboxgenz@gmail.com",
-                    subject : data.subject,
-                    body : data.body,
-                    date: new Date(),
-                    image: '',
-                    name: 'SkyBox',
-                    starred: false,
-                    type: 'sent'
-                }
-                sentEmailService.call(payload);
-                
             } else {
                 console.error("Failed to send email");
             }

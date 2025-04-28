@@ -22,5 +22,9 @@ export const API_URLS = {
     moveEmailsToBin: {
         endpoint: 'bin',
         method: 'POST'
+    },
+    getEmailStatus: {
+        endpoint: 'tracking/status',
+        method: 'GET'
     }
 }
