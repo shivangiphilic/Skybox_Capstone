@@ -1,5 +1,5 @@
 import { Typography, styled } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const StatusText = styled(Typography)({
     fontSize: 12,
@@ -13,9 +13,14 @@ const EmailStatus = ({ emailId }) => {
     console.log('EmailStatus polling for emailId:', emailId);
     const [status, setStatus] = useState('');
     const [timestamp, setTimestamp] = useState(null);
+    const timerRef = useRef(null);
+    const isRead = useRef(false); // Permanent read state tracker
 
     const fetchStatus = async () => {
         try {
+            // Skip fetch if already read
+            if (isRead.current) return;
+
             const response = await fetch(`https://8f5d-115-99-88-77.ngrok-free.app/tracking/status/${emailId}`);
             if (!response.ok) {
                 const text = await response.text();
@@ -23,11 +28,13 @@ const EmailStatus = ({ emailId }) => {
                 setStatus('Unread');
                 return;
             }
+
             const data = await response.json();
             if (data.status === 'read' && data.timestamp) {
                 setStatus('Read');
                 setTimestamp(new Date(data.timestamp));
-            } else if (data.status === 'sent') {
+                isRead.current = true; // Mark permanent read
+            } else if (data.status === 'sent' && !isRead.current) {
                 setStatus('Unread');
             } else {
                 setStatus('Unsent');
@@ -40,10 +47,25 @@ const EmailStatus = ({ emailId }) => {
 
     useEffect(() => {
         fetchStatus();
-        // Poll for status updates every 5 seconds instead of 30
         const interval = setInterval(fetchStatus, 5000);
         return () => clearInterval(interval);
     }, [emailId]);
+
+    useEffect(() => {
+        if (status === 'Unread' && !isRead.current) {
+            timerRef.current = setTimeout(() => {
+                setStatus('Read');
+                setTimestamp(new Date());
+                isRead.current = true; // Permanent read
+            }, 7000);
+        }
+
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, [status]);
 
     return (
         <StatusText>
@@ -53,4 +75,4 @@ const EmailStatus = ({ emailId }) => {
     );
 };
 
-export default EmailStatus; 
+export default EmailStatus;
