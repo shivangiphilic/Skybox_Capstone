@@ -14,7 +14,7 @@ const EmailStatus = ({ emailId }) => {
     const [status, setStatus] = useState('');
     const [timestamp, setTimestamp] = useState(null);
     const timerRef = useRef(null);
-    const isRead = useRef(false); // Permanent read state tracker
+    const isRead = useRef(false); 
 
     const fetchStatus = async () => {
         try {
@@ -33,7 +33,7 @@ const EmailStatus = ({ emailId }) => {
             if (data.status === 'read' && data.timestamp) {
                 setStatus('Read');
                 setTimestamp(new Date(data.timestamp));
-                isRead.current = true; // Mark permanent read
+                isRead.current = true; 
             } else if (data.status === 'sent' && !isRead.current) {
                 setStatus('Unread');
             } else {
@@ -56,7 +56,7 @@ const EmailStatus = ({ emailId }) => {
             timerRef.current = setTimeout(() => {
                 setStatus('Read');
                 setTimestamp(new Date());
-                isRead.current = true; // Permanent read
+                isRead.current = true; 
             }, 7000);
         }
 
